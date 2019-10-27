@@ -17,7 +17,7 @@ class Featured extends Component {
 
 		// load saved featured posts from db
 		this.ajax = new Ajax();     
-        this.ajax.getFeaturedFeaturedBoardPosts(this);
+        this.ajax.getFeaturedBoardPosts(this);
 	}
 
     getDataIndex(e) {

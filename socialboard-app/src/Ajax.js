@@ -20,7 +20,7 @@ class Ajax {
         	});
 	}
 
-	getFeaturedFeaturedBoardPosts = (t) => {
+	getFeaturedBoardPosts = (t) => {
 		axios.get(`${this.baseUrl}/post`)
 			.then(response => {	
 				this.handleAjaxResponse(t, response, 'featuredboard');
