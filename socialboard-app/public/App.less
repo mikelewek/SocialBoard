@@ -1,0 +1,211 @@
+body {
+	background-color: #e6ecf0;
+}
+form select.custom-select {
+	border-color: #ced4da;
+	background-color: #e9ecef;
+}
+
+/*  specific page css  */
+.mt-55 {
+	margin-top: 55px;
+}
+.mt-75 {
+    margin-top: 75px;
+}
+
+input[name='id'] {
+	width: 60%;
+    padding-left: 5px;
+}
+
+.hidden {
+	display: none;
+}
+
+@media(min-width: 960px) {
+	input[name='id'] {
+		width: 64%;
+	}
+}
+#results {
+	margin-top: 15px;
+}
+.search-container {
+	background: #fff;
+	padding: 10px 10px 15px;
+	border-bottom: 1px solid #ddd;
+	border-top: 1px solid #ddd;
+}
+
+/*   post   */
+.post {
+    background-color: #fff;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    margin: 0.4%;
+
+    .featured-toggle {
+        float: right;
+        position: absolute;
+        top: -1px;
+        right: -1px;
+        background: #efefef;
+        border: 1px solid #ccc;
+        padding: 1px 10px;
+        cursor: pointer;
+    }
+
+    .unfeature& .featured-toggle {
+        background: #98e898;
+        border: 0;
+    }
+
+    .unfeature& {
+        border: 3px solid #98e898;
+    }
+
+    .media {
+        &[data-count='2'] {
+            float: left;
+            width: calc(100% / 2 - 1px);
+        }
+
+        &[data-count='4'].index-0 {
+            float: left;
+            width: 75%;
+        }
+
+        &[data-count='2'], &[data-count='4'].index-0 {
+            margin-bottom: 15px;
+        }
+
+        &[data-count='3'].index-0 {
+            float: left;
+            width: 100%;
+        }
+
+        &[data-count='3'].index-1, &[data-count='3'].index-2 {
+            float: left;
+            width: calc(100% / 2 - 1px);
+            margin-bottom: 15px;
+        }
+
+        &[data-count='2']:first-child, &[data-count='3'].index-1,
+        &[data-count='4'].index-0 {
+            margin-right: 1px;
+        }
+
+        &[data-count='3'].index-0 {
+            margin-bottom: 1px;
+        }
+
+        &[data-count='4'].index-1, &[data-count='4'].index-2, &[data-count='4'].index-3 {
+            border-bottom: 1px solid #fff;
+            width: 25%;
+            width: calc(100% / 4 - 1px);
+        }
+
+        img {
+            width: 100%;
+            border-radius: .25rem;
+        }
+    }
+
+    .body {
+        padding: 12px 10px;
+    }
+
+    .user {
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 5px;
+
+        img {
+            float: left;
+            margin-right: 5px;
+            /*width: 48px;
+			height: 48px;*/
+            border-radius: 50%;
+        }
+
+        .name {
+            /*float: left;*/
+            padding-right: 5px;
+        }
+
+        .username {
+            color: #657786;
+            margin-bottom: 15px;
+        }
+    }
+
+    .text {
+        line-height: 1.5em;
+    }
+
+    .footer {
+        height: 27px;
+        padding-top: 8px;
+        margin-top: 10px;
+        border-top: 1px solid #ddd;
+        font-size: 13px;
+
+        .post-time {
+            float: left;
+        }
+
+        .favorite-count, .retweet-count {
+            display: inline-block;
+            float: right;
+            text-align: right;
+            font-size: 12px;
+            font-weight: bold;
+            color: #666;
+            top: 4px;
+            position: relative;
+        }
+
+        .retweet-count {
+            margin-right: 5px;
+        }
+
+        .icon {
+            content: '';
+            float: right;
+            position: relative;
+            display: inline-block;
+            width: 30px;
+            height: 22px;
+            background-position: -9px -14px;
+            background-repeat: no-repeat;
+            background-size: 5000%;
+        }
+
+        .favorite-count-icon {
+            background-image: url(https://abs.twimg.com/a/1548278062/img/animations/web_heart_animation_edge.png);
+        }
+
+        .retweet-count-icon {
+            background-image: url(./retweet-icon.png);
+            background-position: 4px 2px;
+            background-size: auto;
+        }
+    }
+}
+
+    .card-columns {
+        column-count: 4;
+    }
+
+    [data-live='true'] {
+        margin-top: 0;
+
+        .navbar, .featured-toggle {
+            display: none;
+        }
+
+        .card {
+            border: 0;
+        }
+    }
