@@ -11,11 +11,13 @@ Provides ability to search for posts with terms, hashtags, or post id. The user 
 * [LinqToTwitter](https://github.com/JoeMayo/LinqToTwitter)
 
 ##### Creating database tables
-> dotnet ef database update InitialCreate
+> dotnet ef database update
 
 ##### Quick fix for running React App with .NET
 * A CORS extension for Chrome is needed during dev for different port usage
 
+
+##### Running the React project
 <pre>
 <code>$ cd socialboard-app</code>
 <code>$ yarn</code>
