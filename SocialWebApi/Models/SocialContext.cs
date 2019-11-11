@@ -9,10 +9,10 @@ namespace SocialWebApi.Models
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // docker 
-            // optionsBuilder.UseSqlServer("Server=localhost,1433;Database=SocialBoard;MultipleActiveResultSets=true;integrated security=False;User ID=xxx;Password=xxx;");
+            // optionsBuilder.UseSqlServer("xxxx");
 
             // azure
-            optionsBuilder.UseSqlServer("Server=sqlazure01lewek.database.windows.net;Database=SocialBoard;MultipleActiveResultSets=true;integrated security=False;User ID=xxx;Password=xxx;");
+            optionsBuilder.UseSqlServer("xxxx");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

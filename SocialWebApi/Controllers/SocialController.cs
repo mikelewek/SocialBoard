@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using InstaSharper.Classes.Models;
-using LinqToTwitter;
 using Microsoft.AspNetCore.Mvc;
 using SocialWebApi.Models;
-using SocialWebApi.Repositories;
 
 namespace SocialWebApi.Controllers
 {
@@ -20,11 +16,10 @@ namespace SocialWebApi.Controllers
     public class SocialController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly UnitOfWork _uow;
+        private readonly SocialContext _context = new SocialContext();
 
         public SocialController(IMapper mapper)
-        {
-            _uow = new UnitOfWork();
+        {            
             _mapper = mapper;
 		}
 

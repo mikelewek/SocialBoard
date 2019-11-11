@@ -4,25 +4,23 @@ using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using SocialWebApi.Models;
-using SocialWebApi.Repositories;
 
 namespace SocialWebApi.Controllers
 {
     /// <summary>
     /// Save and get featured tweets in project database
     /// </summary>
-    
-	// api/post
+
+    // api/post
     [Route("api/[controller]")]
     [ApiController]
     public class PostController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly UnitOfWork _uow;
+        private readonly SocialContext _context = new SocialContext();
 
 		public PostController(IMapper mapper)
         {
-            _uow = new UnitOfWork();
             _mapper = mapper;
 		}
 
@@ -30,8 +28,7 @@ namespace SocialWebApi.Controllers
         public IActionResult Get()
         {
             // get featured posts
-            // 
-            var json = _uow.TweetRepository.Get();
+            var json = _context.SocialBoardTweets;
             return Ok(json);
         }
 
@@ -60,28 +57,27 @@ namespace SocialWebApi.Controllers
                 model.DateAdded = DateTime.Now;
                 var tweet = _mapper.Map<SocialBoardTweets>(model);
 
-                _uow.TweetRepository.Insert(tweet);
-                _uow.Save();
+                _context.SocialBoardTweets.Add(tweet);
+                _context.SaveChanges();
 
                 return NoContent();
             }
 
-            return BadRequest(ModelState);
-            
+            return BadRequest(ModelState);            
         }
 
 
         [HttpDelete("{postId}")]
         public IActionResult Delete(string postId)
         {
-            var featuredTweet = _uow.TweetRepository.Get(x => x.IdString == postId).FirstOrDefault();
+            var featuredTweet = _context.SocialBoardTweets.FirstOrDefault(x => x.IdString == postId);
             if (featuredTweet == null)
             {
                 return NotFound();
             }
 
-            _uow.TweetRepository.Delete(featuredTweet.SocialId);
-            _uow.Save();
+            _context.SocialBoardTweets.Remove(featuredTweet);
+            _context.SaveChanges();
             return Ok();
         }
     }
