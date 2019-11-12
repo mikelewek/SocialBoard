@@ -17,12 +17,13 @@ namespace SocialWebApi.Controllers
     public class PostController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly SocialContext _context = new SocialContext();
+        private readonly SocialContext _context;
 
-		public PostController(IMapper mapper)
+        public PostController(IMapper mapper, SocialContext context)
         {
             _mapper = mapper;
-		}
+            _context = context;
+        }
 
         [HttpGet]
         public IActionResult Get()
@@ -32,27 +33,27 @@ namespace SocialWebApi.Controllers
             return Ok(json);
         }
 
-		[HttpGet("tweets/id/{id}")]
-		public ActionResult<SocialBoardTweets> GetTweetById(string id)
-		{
-			TwitterQuery tw = new TwitterQuery();
-			var tweet = tw.GetTweet(Convert.ToUInt64(id));
+        [HttpGet("tweets/id/{id}")]
+        public ActionResult<SocialBoardTweets> GetTweetById(string id)
+        {
+            TwitterQuery tw = new TwitterQuery();
+            var tweet = tw.GetTweet(Convert.ToUInt64(id));
             List<SocialBoardTweetsDto> query = _mapper.Map<List<SocialBoardTweetsDto>>(tweet);
 
             if (query == null)
-			{
-				return NotFound();
-			}
+            {
+                return NotFound();
+            }
 
-			return Ok(query);
-		}
+            return Ok(query);
+        }
 
-		// add post to featured post grid
-		// POST api/post
-		[HttpPost]
+        // add post to featured post grid
+        // POST api/post
+        [HttpPost]
         public IActionResult Post([FromBody] SocialBoardTweetsDto model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 model.DateAdded = DateTime.Now;
                 var tweet = _mapper.Map<SocialBoardTweets>(model);
@@ -63,7 +64,7 @@ namespace SocialWebApi.Controllers
                 return NoContent();
             }
 
-            return BadRequest(ModelState);            
+            return BadRequest(ModelState);
         }
 
 

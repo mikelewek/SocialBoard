@@ -16,11 +16,12 @@ namespace SocialWebApi.Controllers
     public class SocialController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly SocialContext _context = new SocialContext();
+        private readonly SocialContext _context;
 
-        public SocialController(IMapper mapper)
+        public SocialController(IMapper mapper, SocialContext context)
         {            
             _mapper = mapper;
+            _context = context;
 		}
 
         [HttpGet("instatweets/term/{term}")]
