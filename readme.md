@@ -13,9 +13,6 @@ Provides ability to search for posts with terms, hashtags, or post id. The user 
 ##### Creating database tables
 > dotnet ef database update
 
-##### Quick fix for running React App with .NET
-* A CORS extension for Chrome is needed during dev for different port usage
-
 
 ##### Running the React project
 <pre>
