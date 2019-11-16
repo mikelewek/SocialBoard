@@ -9,8 +9,8 @@ class Search extends Component {
     
 		this.state = {
 			id: 'Rangers',
-			type: "term",
-			socialType: "instatweets",
+			type: "screenname",
+			socialType: "tweets",
 			data: [],
 			featured: [],
 			loading: false,
