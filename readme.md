@@ -26,3 +26,4 @@ Provides ability to search for posts with terms, hashtags, or post id. The user 
 * Integrate Insta posts
 * Auto-update featured and live boards every n seconds
 * Refine style
+* Ordering tiles
