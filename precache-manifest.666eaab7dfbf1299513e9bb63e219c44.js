@@ -4,19 +4,19 @@ self.__precacheManifest = [
     "url": "/SocialBoard/static/js/runtime~main.a349138b.js"
   },
   {
-    "revision": "3b28dc7124a4d238cebe",
-    "url": "/SocialBoard/static/js/main.3b28dc71.chunk.js"
+    "revision": "345a75991873451e201e",
+    "url": "/SocialBoard/static/js/main.345a7599.chunk.js"
   },
   {
     "revision": "ef2b9eb647011e110904",
     "url": "/SocialBoard/static/js/1.ef2b9eb6.chunk.js"
   },
   {
-    "revision": "3b28dc7124a4d238cebe",
+    "revision": "345a75991873451e201e",
     "url": "/SocialBoard/static/css/main.62f71493.chunk.css"
   },
   {
-    "revision": "421ca920a0fd888451d0f3caf0668e9e",
+    "revision": "b144b69fca54b37da982c3721f796349",
     "url": "/SocialBoard/index.html"
   }
 ];
