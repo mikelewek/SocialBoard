@@ -21,6 +21,9 @@ Provides ability to search for posts with terms, hashtags, or post id. The user 
 <code>$ yarn start</code>
 </pre>
 
+##### Deploying gh-pages branch
+* Change the HashRouting paths in Header.js and Home.js. Example below:
+> /SocialBoard/#/search
 
 ##### Deploying to gh-pages branch
 <pre>
