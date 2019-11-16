@@ -1,13 +1,13 @@
 {
   "main.css": "/SocialBoard/static/css/main.62f71493.chunk.css",
-  "main.js": "/SocialBoard/static/js/main.68f84795.chunk.js",
-  "main.js.map": "/SocialBoard/static/js/main.68f84795.chunk.js.map",
+  "main.js": "/SocialBoard/static/js/main.2354d02b.chunk.js",
+  "main.js.map": "/SocialBoard/static/js/main.2354d02b.chunk.js.map",
   "static/js/1.ef2b9eb6.chunk.js": "/SocialBoard/static/js/1.ef2b9eb6.chunk.js",
   "static/js/1.ef2b9eb6.chunk.js.map": "/SocialBoard/static/js/1.ef2b9eb6.chunk.js.map",
   "runtime~main.js": "/SocialBoard/static/js/runtime~main.a349138b.js",
   "runtime~main.js.map": "/SocialBoard/static/js/runtime~main.a349138b.js.map",
   "static/css/main.62f71493.chunk.css.map": "/SocialBoard/static/css/main.62f71493.chunk.css.map",
   "index.html": "/SocialBoard/index.html",
-  "precache-manifest.0e1812c6297ef4bbfb87df2e7465fbfc.js": "/SocialBoard/precache-manifest.0e1812c6297ef4bbfb87df2e7465fbfc.js",
+  "precache-manifest.6793b11df8fe38139c9a3c1ecebe4574.js": "/SocialBoard/precache-manifest.6793b11df8fe38139c9a3c1ecebe4574.js",
   "service-worker.js": "/SocialBoard/service-worker.js"
 }
