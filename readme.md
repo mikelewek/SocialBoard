@@ -22,6 +22,11 @@ Provides ability to search for posts with terms, hashtags, or post id. The user 
 </pre>
 
 
+##### Deploying to gh-pages branch
+<pre>
+	<code>$ npm run deploy</code>
+</pre>
+
 ##### To-Do
 * Integrate Insta posts
 * Auto-update featured and live boards every n seconds
