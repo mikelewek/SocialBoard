@@ -9,10 +9,10 @@ class App extends Component {
     return (
       <HashRouter>
         <div className="main">
-          <Route path='/' render={() => (<Home />)}/>
-          <Route path='/search' render={() => (<Search />)}/>
-		      <Route path='/featured' render={() => (<Featured />)} />
-          <Route path='/live' render={(props)=>(<Featured live='true' />)} />
+          <Route exact path='/' render={() => (<Home />)}/>
+          <Route exact path='/search' render={() => (<Search />)}/>
+		      <Route exact path='/featured'render={() => (<Featured />)}/>
+          <Route exact path='/live' render={(props)=>(<Featured live='true' />)} />
         </div>
       </HashRouter>
     );
