@@ -3,7 +3,8 @@ import mockFeatured from './mockFeatured';
 
 class Ajax {	
 	constructor() {
-        this.baseUrl = "https://localhost:5001/api";
+       this.baseUrl = "https://socialboarddemo.azurewebsites.net/api";
+       // this.baseUrl = "https://localhost:5001/api";
     }
 
 	getPosts = (t) => {
@@ -83,7 +84,7 @@ class Ajax {
 		}
 		else if (response.status === 400) {
 			t.setState({
-				message: "Oops. Someting went wrong!"
+				message: "Oops. Something went wrong!"
 			});
 		}
 	}
