@@ -7,7 +7,6 @@ class Featured extends Component {
 	constructor(props) {
 		super(props);
     
-		this.baseurl = 'https://localhost:5001'
 		this.state = {
 			data: [],
 			loading: false,
