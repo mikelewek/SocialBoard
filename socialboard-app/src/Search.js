@@ -7,9 +7,8 @@ class Search extends Component {
 	constructor(props) {
 		super(props);
     
-		this.host = 'https://localhost:5001'
 		this.state = {
-			id: 'GerritCole45',
+			id: 'Rangers',
 			type: "term",
 			socialType: "instatweets",
 			data: [],
