@@ -36,3 +36,4 @@ Provides ability to search for posts with terms, hashtags, or post id. The user 
 * Auto-update featured and live boards every n seconds
 * Refine style
 * Ordering tiles
+* Option to automatically remove older featured posts over screen height
