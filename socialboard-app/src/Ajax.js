@@ -52,7 +52,7 @@ class Ajax {
 	handleAjaxResponse = (t, response, postType = 'data') => {
 		if (response === undefined) {
 			t.setState({
-				messageType: 'error',
+				messageType: 'danger',
 				message: `Oops. Someting went wrong: "${response}"`
 			});
 			return;
@@ -60,7 +60,7 @@ class Ajax {
 
 		if(response.status === 429) {
 			t.setState({
-				messageType: 'error',
+				messageType: 'danger',
 				message: 'Too many requests. Please retry in 10 seconds.'
 			});
 			return;
