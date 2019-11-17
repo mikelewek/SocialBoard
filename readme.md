@@ -34,6 +34,7 @@ https://mikelewek.github.io/SocialBoard
 </pre>
 
 ##### To-Do
+* Cache post data to prevent unecessary calls
 * Add loading images when searching and updating page
 * Fix for multiple images in posts 
 * Integrate Insta posts
