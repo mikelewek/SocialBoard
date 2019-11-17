@@ -33,7 +33,7 @@ namespace SocialWebApi.Attributes
             {
                 context.Result = new ContentResult
                 {
-                    Content = "{message: 'Too Many Requests. Retry after " + Seconds + " seconds.',}",
+                    Content = "{message: 'Too Many Requests. Retry after " + Seconds + " seconds.'}",
                 };
 
                 context.HttpContext.Response.StatusCode = (int)HttpStatusCode.TooManyRequests;

@@ -6,13 +6,8 @@ namespace SocialWebApi.Models
     {
         public virtual DbSet<SocialBoardTweets> SocialBoardTweets { get; set; }
 
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public SocialContext(DbContextOptions<SocialContext> options): base(options)
         {
-            // docker 
-            // optionsBuilder.UseSqlServer("xxxx");
-
-            // azure
-            optionsBuilder.UseSqlServer("xxxx");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

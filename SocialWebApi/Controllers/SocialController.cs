@@ -15,25 +15,11 @@ namespace SocialWebApi.Controllers
     [ApiController]
     public class SocialController : ControllerBase
     {
-        private readonly IMapper _mapper;
-        private readonly SocialContext _context;
-
-        public SocialController(IMapper mapper, SocialContext context)
-        {            
-            _mapper = mapper;
-            _context = context;
-		}
-
         [HttpGet("instatweets/term/{term}")]
         public ActionResult<string> GetTweetAndInstaByTerm(string term)
         {
             TwitterQuery tw = new TwitterQuery();
             var query = tw.GetTweetsByTerm(term);
-
-            // combine
-            //InstaQuery insta = new InstaQuery();
-            //await insta.Auth();
-            //var json = await insta.GetInstaByTag(term);
 
             return Ok(query);
         }
@@ -53,8 +39,7 @@ namespace SocialWebApi.Controllers
         public ActionResult<SocialBoardTweetsDto> GetTweetById(string id)
         {
             TwitterQuery tw = new TwitterQuery();
-            var tweet = tw.GetTweet(Convert.ToUInt64(id));
-            List<SocialBoardTweetsDto> query = _mapper.Map<List<SocialBoardTweetsDto>>(tweet);
+            var query = tw.GetTweet(Convert.ToUInt64(id));
 
             if(query == null)
             {

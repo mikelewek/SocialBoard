@@ -1,6 +1,8 @@
-﻿using AutoMapper;
+﻿using System.Data.SqlClient;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -12,14 +14,30 @@ namespace SocialWebApi
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+        private string _azureConnectionString = null;
+        private string _localConnectionString = null;
+
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var builder = new SqlConnectionStringBuilder(
+            Configuration.GetConnectionString("Azure"));
+            builder.Password = Configuration["Database:AzurePassword"];
+            _azureConnectionString = builder.ConnectionString;
+
             services.AddAutoMapper(typeof(Startup));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddDbContext<SocialContext>();
+            services.AddDbContext<SocialContext>(options =>
+                options.UseSqlServer(_azureConnectionString)
+            );
 
-			services.AddMvc().AddJsonOptions(options => {
+            services.AddMvc().AddJsonOptions(options => {
 				options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
 			});
 		}
@@ -27,6 +45,9 @@ namespace SocialWebApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            var builder = new ConfigurationBuilder();
+            builder.AddUserSecrets<Startup>();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -37,9 +58,9 @@ namespace SocialWebApi
                 app.UseHsts();
             }
 
-            app.UseCors(builder =>
+            app.UseCors(corsBuilder =>
             {
-                builder
+                corsBuilder
                     .WithOrigins("http://localhost:3000")
                     .AllowAnyMethod()
                     .AllowAnyHeader()
