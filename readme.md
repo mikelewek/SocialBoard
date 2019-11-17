@@ -30,7 +30,7 @@ https://mikelewek.github.io/SocialBoard
 
 ##### Deploying to gh-pages branch
 <pre>
-	<code>$ npm run deploy</code>
+<code>$ npm run deploy</code>
 </pre>
 
 ##### To-Do
