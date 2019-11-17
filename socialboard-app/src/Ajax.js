@@ -21,14 +21,20 @@ class Ajax {
 		axios.get(`${this.baseUrl}/post`)
 			.then(response => {	
 				this.handleAjaxResponse(t, response, 'featured');
-        	});
+        	})
+        	.catch(error => {
+			   	this.handleAjaxResponse(t, error.response);
+			 });
 	}
 
 	getFeaturedBoardPosts = (t) => {
 		axios.get(`${this.baseUrl}/post`)
 			.then(response => {	
 				this.handleAjaxResponse(t, response, 'featuredboard');
-        	});
+        	})
+        	.catch(error => {
+			   	this.handleAjaxResponse(t, error.response);
+			 });
 	}
 
 	savePost = (t, data) => {
@@ -37,7 +43,10 @@ class Ajax {
 			    this.handleAjaxResponse(t, response);
 			}).catch(error => {
 				this.handleAjaxResponse(t, error.response);
-			});
+			})
+        	.catch(error => {
+			   	this.handleAjaxResponse(t, error.response);
+			 });
 	}
 
 	deletePost = (t, id) => {
@@ -46,7 +55,10 @@ class Ajax {
 			    this.handleAjaxResponse(t, response, 'delete');
 			}).catch(error => {
 				this.handleAjaxResponse(t, error.response);
-			});
+			})
+        	.catch(error => {
+			   	this.handleAjaxResponse(t, error.response);
+			 });
 	}
 
 	handleAjaxResponse = (t, response, postType = 'data') => {
