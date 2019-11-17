@@ -3,15 +3,18 @@ import mockFeatured from './mockFeatured';
 
 class Ajax {	
 	constructor() {
-       this.baseUrl = "https://socialboarddemo.azurewebsites.net/api";
-       // this.baseUrl = "https://localhost:5001/api";
+        this.baseUrl = "https://socialboarddemo.azurewebsites.net/api";
+        //this.baseUrl = "https://localhost:5001/api";
     }
 
 	getPosts = (t) => {
 		axios.get(`${this.baseUrl}/social/${t.state.socialType}/${t.state.type}/${t.state.id}`)
 			.then(response => {	
 				this.handleAjaxResponse(t, response);
-        	});
+        	})
+        	.catch(error => {
+			   	this.handleAjaxResponse(t, error.response);
+			 });
 	}
 
 	getFeaturedPosts = (t) => {
@@ -51,6 +54,14 @@ class Ajax {
 			t.setState({
 				messageType: 'error',
 				message: `Oops. Someting went wrong: "${response}"`
+			});
+			return;
+		}
+
+		if(response.status === 429) {
+			t.setState({
+				messageType: 'error',
+				message: 'Too many requests. Please retry in 10 seconds.'
 			});
 			return;
 		}

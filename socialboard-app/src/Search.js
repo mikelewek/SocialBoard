@@ -82,6 +82,7 @@ class Search extends Component {
 			  <Header/>
 				  <div className="col-md-4">
 					<h4>Search</h4>
+					<p class={this.state.message === "" ? "collapse" : "expand alert alert-" + this.state.messageType}>{this.state.message}</p>
 					  <form onSubmit={this.handleSubmit}>
 						  <div className="input-group mb-2">
 							  <div className="input-group-prepend">
