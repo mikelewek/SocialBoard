@@ -45,7 +45,7 @@ class Featured extends Component {
     		<>
                 <div className="mt-75" data-live={live}>
                     <Header/>  
-                    <p class={this.state.message === "" ? "collapse" : "expand alert alert-" + this.state.messageType}>{this.state.message}</p>
+                    <p class={this.state.message === "" ? "collapse" : "expand mr-2 ml-2 alert alert-" + this.state.messageType}>{this.state.message}</p>
         		    <div id="results" className="container-fluid">
         					<div className="card-columns">
         					<Tweet onFeatureClick={this.handleFeatureClick} data={this.state.data} />
