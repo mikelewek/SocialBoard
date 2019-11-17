@@ -35,6 +35,7 @@ https://mikelewek.github.io/SocialBoard
 
 ##### To-Do
 * Cache post data to prevent unecessary calls
+* .less file issue caused by Hashrouter unless published to Azure
 * Add loading images when searching and updating page
 * Fix for multiple images in posts 
 * Integrate Insta posts
