@@ -9,31 +9,54 @@ namespace SocialWebApi.Models
     public class SocialBoardTweetsDto
     {
         public int SocialId { get; set; }
+
         public DateTime CreatedAt { get; set; }
+
         public DateTime DateAdded { get; set; }
+
         public int FollowersCount { get; set; }
+
         public int FriendsCount { get; set; }
+
         public string InReplyToStatusId { get; set; }
+
         public string InReplyToScreenName { get; set; }
+
         public int RetweetCount { get; set; } = 0;
+
         public int FavoritedCount { get; set; } = 0;
+
         public string MediaUrl { get; set; }
+
         public long Id { get; set; }
+
         public bool PossiblySensitive { get; set; }
+
         public long? SinceId { get; set; }
+
         public long? MaxId { get; set; }
 
 
         public bool IncludeRetweets { get; set; }
+
         public bool ExcludeReplies { get; set; }
+
         public bool IncludeEntities { get; set; }
+
         public User User { get; set; }
+
         public Entities Entities { get; set; }
+
         public Entities ExtendedEntities { get; set; }
+
         public Status RetweetedStatus { get; set; }
+
         public Status ExtendedTweet { get; set; }
+
         public string Source { get; set; }
+
         public bool IsFeatured { get; set; }
+
         public string IdString { get; set; }
 
         private string _createdAtString;
