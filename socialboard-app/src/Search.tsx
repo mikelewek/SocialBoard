@@ -3,48 +3,66 @@ import Header from './Header';
 import Tweet from './Tweet';
 import Ajax from './Ajax';
 
-class Search extends Component {
-	constructor(props) {
+interface SearchProps {
+}
+
+interface SearchState {
+	id: string;
+	type: string;
+	socialType: string;
+	data: any;
+	featured: any;
+	loading: any;
+	message: string;
+	messageType: string;
+	[name: string]: string;
+}
+
+class Search extends Component<SearchProps, SearchState> {
+	ajax:any;
+
+	constructor(props:any) {
 		super(props);
     
 		this.state = {
 			id: 'Rangers',
 			type: "screenname",
 			socialType: "tweets",
-			data: [],
-			featured: [],
-			loading: false,
+			data: '',
+			featured: '',
+			loading: '',
 			message: '',
-			messageType: ''
+			messageType: '',
+			[name]: ''
 		};
 
-		this.ajax = new Ajax();
+		this.ajax = new Ajax(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
         this.handleFeatureClick = this.handleFeatureClick.bind(this);
 	}
     
-	handleFeatureClick = (e) => {
+	handleFeatureClick = (e:any) => {
         if(e.isFeatured !== true) {
-			// save featured post
-			this.ajax.savePost(this, e);
+			// save featured post 
+			this.ajax.savePost(e);
         }
         else {
-            // delete saved post
-            this.ajax.deletePost(this, e.idString);
+            // delete saved post    
+            this.ajax.deletePost(e.idString);
         }
 
         // get clicked post and toggle the featured prop
-		let objIndex = this.getDataIndex(e);
-		let newData = this.state.data;
-		newData[objIndex].isFeatured = !newData[objIndex].isFeatured;
+		//let objIndex = this.getDataIndex(e);
+		//let newData = this.state.data;
+		//newData[objIndex].isFeatured = !newData[objIndex].isFeatured;
 
-		this.setState({
-			data: newData,
-		});
+		//this.setState({
+	//		data: newData,
+//		});
     }
 
-	handleInputChange(e) {
+	handleInputChange(e:any) {
 		const target = e.target;
 		const value = target.type === 'checkbox' ? target.checked : target.value;
 		const name = target.name;
@@ -54,16 +72,16 @@ class Search extends Component {
 		});
 	}
 
-	handleSubmit(e) {
+	handleSubmit(e:any) {
 		e.preventDefault();
 		this.setState({
 			data: [],
 			loading: true
 		});
        
-        //this.ajax.getMockFeaturedPosts(this);
-        this.ajax.getFeaturedPosts(this);  
-        this.ajax.getPosts(this);      
+        //this.ajax.getMockFeaturedPosts();    
+        this.ajax.getFeaturedPosts();  
+        this.ajax.getPosts();      
 
         // set featured/saved post array
         // setInterval(function() { 
@@ -71,8 +89,8 @@ class Search extends Component {
         // }, 6000);
    	}
 
-    getDataIndex(e) {
-		return this.state.data.findIndex((obj => obj.idString === e.idString));
+    getDataIndex(e:any) {
+	//	return this.state.data.findIndex((obj => obj.idString === e.idString));
 	}
 
   render() {
@@ -82,7 +100,7 @@ class Search extends Component {
 			  <Header/>
 				  <div className="col-md-4">
 					<h4>Search</h4>
-					<p class={this.state.message === "" ? "collapse" : "expand alert alert-" + this.state.messageType}>{this.state.message}</p>
+					<p className={this.state.message === "" ? "collapse" : "expand alert alert-" + this.state.messageType}>{this.state.message}</p>
 					  <form onSubmit={this.handleSubmit}>
 						  <div className="input-group mb-2">
 							  <div className="input-group-prepend">
