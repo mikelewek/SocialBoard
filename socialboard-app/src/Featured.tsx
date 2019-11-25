@@ -3,8 +3,22 @@ import Tweet from './Tweet';
 import Header from './Header';
 import Ajax from './Ajax';
 
-class Featured extends Component {
-	constructor(props) {
+
+interface FeaturedProps {
+    live?: string;
+}
+
+interface FeaturedState {
+    data: any;
+    loading: boolean;
+    message: string;
+    messageType: string;
+}
+
+class Featured extends Component<FeaturedProps, FeaturedState> {	
+    ajax:Ajax;
+
+    constructor(props:any) {
 		super(props);
     
 		this.state = {
@@ -15,17 +29,17 @@ class Featured extends Component {
 		};
 
 		// load saved featured posts from db
-		this.ajax = new Ajax();     
-        this.ajax.getFeaturedBoardPosts(this);
+		this.ajax = new Ajax(this);     
+        this.ajax.getFeaturedBoardPosts();
 	}
 
-    getDataIndex(e) {
-        return this.state.data.findIndex((obj => obj.idString === e.idString));
+    getDataIndex(e:any) {
+ //       return this.state.data.findIndex((obj => obj.idString === e.idString));
     }
 
-	handleFeatureClick = (e) => {  
+	handleFeatureClick = (e:any) => {  
         // delete featured post
-        this.ajax.deletePost(this, e.idString);
+        this.ajax.deletePost(e.idString);
 
         // remove post from data state 
         let objIndex = this.getDataIndex(e);
@@ -45,7 +59,7 @@ class Featured extends Component {
     		<>
                 <div className="mt-75" data-live={live}>
                     <Header/>  
-                    <p class={this.state.message === "" ? "collapse" : "expand mr-2 ml-2 alert alert-" + this.state.messageType}>{this.state.message}</p>
+                    <p className={this.state.message === "" ? "collapse" : "expand mr-2 ml-2 alert alert-" + this.state.messageType}>{this.state.message}</p>
         		    <div id="results" className="container-fluid">
         					<div className="card-columns">
         					<Tweet onFeatureClick={this.handleFeatureClick} data={this.state.data} />
