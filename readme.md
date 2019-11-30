@@ -43,3 +43,8 @@ https://mikelewek.github.io/SocialBoard
 * Refine style
 * Ordering tiles
 * Option to automatically remove older featured posts over screen height
+* Matching featured with search results doesn't look like it should work
+
+
+##### Secrets File for Database Connection and API Strings
+https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets
