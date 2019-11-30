@@ -27,8 +27,8 @@ namespace SocialWebApi
         public void ConfigureServices(IServiceCollection services)
         {
             var builder = new SqlConnectionStringBuilder(
-            Configuration.GetConnectionString("Azure"));
-            builder.Password = Configuration["Database:AzurePassword"];
+            Configuration.GetConnectionString("Local"));
+            builder.Password = Configuration["Database:LocalPassword"];
             _azureConnectionString = builder.ConnectionString;
 
             services.AddAutoMapper(typeof(Startup));

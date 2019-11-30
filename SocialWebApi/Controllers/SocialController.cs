@@ -50,7 +50,6 @@ namespace SocialWebApi.Controllers
         }
 
         [HttpGet("tweets/screenname/{screename}")]
-        [RequestRateLimit(Name = "Limit Request Number", Seconds = 10)]
         public ActionResult<string> GetUserTweets(string screename)
         {
             TwitterQuery tw = new TwitterQuery();

@@ -18,7 +18,7 @@ interface FeaturedState {
 class Featured extends Component<FeaturedProps, FeaturedState> {	
     ajax:Ajax;
 
-    constructor(props:any) {
+    constructor(props: FeaturedProps) {
 		super(props);
     
 		this.state = {
@@ -52,7 +52,7 @@ class Featured extends Component<FeaturedProps, FeaturedState> {
         });
     }
 
-	render() {
+	render = () => {
         const live = this.props.live;
 
 		return (

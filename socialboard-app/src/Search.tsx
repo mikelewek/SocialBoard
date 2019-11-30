@@ -36,7 +36,6 @@ class Search extends Component<SearchProps, SearchState> {
 			[name]: ''
 		};
 
-		this.ajax = new Ajax(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
         this.handleFeatureClick = this.handleFeatureClick.bind(this);
@@ -45,10 +44,12 @@ class Search extends Component<SearchProps, SearchState> {
 	handleFeatureClick = (e:any) => {
         if(e.isFeatured !== true) {
 			// save featured post 
+			this.ajax = new Ajax(this);
 			this.ajax.savePost(e);
         }
         else {
             // delete saved post    
+            this.ajax = new Ajax(this);
             this.ajax.deletePost(e.idString);
         }
 
@@ -79,8 +80,9 @@ class Search extends Component<SearchProps, SearchState> {
 			loading: true
 		});
        
-        //this.ajax.getMockFeaturedPosts();    
-        this.ajax.getFeaturedPosts();  
+       this.ajax = new Ajax(this);
+        this.ajax.getMockFeaturedPosts();    
+        //this.ajax.getFeaturedPosts();  
         this.ajax.getPosts();      
 
         // set featured/saved post array

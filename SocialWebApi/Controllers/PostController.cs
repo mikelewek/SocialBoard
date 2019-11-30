@@ -27,7 +27,6 @@ namespace SocialWebApi.Controllers
         }
 
         [HttpGet]
-        [RequestRateLimit(Name = "Limit Request Number", Seconds = 10)]
         public IActionResult Get()
         {
             // get featured posts
@@ -36,7 +35,6 @@ namespace SocialWebApi.Controllers
         }
 
         [HttpGet("tweets/id/{id}")]
-        [RequestRateLimit(Name = "Limit Request Number", Seconds = 10)]
         public ActionResult<SocialBoardTweets> GetTweetById(string id)
         {
             TwitterQuery tw = new TwitterQuery();
@@ -54,7 +52,6 @@ namespace SocialWebApi.Controllers
         // add post to featured post grid
         // POST api/post
         [HttpPost]
-        [RequestRateLimit(Name = "Limit Request Number", Seconds = 10)]
         public IActionResult Post([FromBody] SocialBoardTweetsDto model)
         {
             if (ModelState.IsValid)
