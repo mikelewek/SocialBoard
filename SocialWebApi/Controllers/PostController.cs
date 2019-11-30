@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using SocialWebApi.Attributes;
 using SocialWebApi.Models;
 
 namespace SocialWebApi.Controllers
@@ -13,8 +12,8 @@ namespace SocialWebApi.Controllers
     /// </summary>
 
     // api/post
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]    
     public class PostController : ControllerBase
     {
         private readonly IMapper _mapper;
@@ -27,7 +26,6 @@ namespace SocialWebApi.Controllers
         }
 
         [HttpGet]
-        [RequestRateLimit(Name = "Limit Request Number", Seconds = 10)]
         public IActionResult Get()
         {
             // get featured posts
@@ -36,7 +34,6 @@ namespace SocialWebApi.Controllers
         }
 
         [HttpGet("tweets/id/{id}")]
-        [RequestRateLimit(Name = "Limit Request Number", Seconds = 10)]
         public ActionResult<SocialBoardTweets> GetTweetById(string id)
         {
             TwitterQuery tw = new TwitterQuery();
@@ -54,7 +51,6 @@ namespace SocialWebApi.Controllers
         // add post to featured post grid
         // POST api/post
         [HttpPost]
-        [RequestRateLimit(Name = "Limit Request Number", Seconds = 10)]
         public IActionResult Post([FromBody] SocialBoardTweetsDto model)
         {
             if (ModelState.IsValid)

@@ -204,10 +204,10 @@ namespace SocialWebApi.Models
             {
                 CredentialStore = new SingleUserInMemoryCredentialStore
                 {
-                    ConsumerKey = "x",
-                    ConsumerSecret = "x",
-                    AccessToken = "x",
-                    AccessTokenSecret = "x"
+                    ConsumerKey = "xx",
+                    ConsumerSecret = "xx",
+                    AccessToken = "xx",
+                    AccessTokenSecret = "xx"
                 }
             };
         }

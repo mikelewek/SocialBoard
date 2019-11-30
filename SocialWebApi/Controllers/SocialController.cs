@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using SocialWebApi.Attributes;
 using SocialWebApi.Models;
 
 namespace SocialWebApi.Controllers
@@ -11,12 +9,13 @@ namespace SocialWebApi.Controllers
     /// <summary>
     /// Get data from external social media endpoints including Twitter and Instagram
     /// </summary>  
-    [Route("api/[controller]")]
+
     [ApiController]
+    [Route("api/[controller]")]
     public class SocialController : ControllerBase
     {
         [HttpGet("instatweets/term/{term}")]
-        public ActionResult<string> GetTweetAndInstaByTerm(string term)
+        public ActionResult GetTweetAndInstaByTerm(string term)
         {
             TwitterQuery tw = new TwitterQuery();
             var query = tw.GetTweetsByTerm(term);
@@ -25,8 +24,7 @@ namespace SocialWebApi.Controllers
         }
 
         [HttpGet("tweets/term/{term}")]
-        [RequestRateLimit(Name = "Limit Request Number", Seconds = 10)]
-        public ActionResult<string> GetTweetByTerm(string term)
+        public ActionResult GetTweetByTerm(string term)
         {
             TwitterQuery tw = new TwitterQuery();
             var query = tw.GetTweetsByTerm(term);
@@ -35,7 +33,6 @@ namespace SocialWebApi.Controllers
         }
 
         [HttpGet("tweets/id/{id}")]
-        [RequestRateLimit(Name = "Limit Request Number", Seconds = 10)]
         public ActionResult<SocialBoardTweetsDto> GetTweetById(string id)
         {
             TwitterQuery tw = new TwitterQuery();
@@ -50,7 +47,6 @@ namespace SocialWebApi.Controllers
         }
 
         [HttpGet("tweets/screenname/{screename}")]
-        [RequestRateLimit(Name = "Limit Request Number", Seconds = 10)]
         public ActionResult<string> GetUserTweets(string screename)
         {
             TwitterQuery tw = new TwitterQuery();

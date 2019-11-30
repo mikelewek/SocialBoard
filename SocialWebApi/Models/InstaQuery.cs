@@ -33,8 +33,8 @@ namespace SocialWebApi.Models
         {
             var userSession = new UserSessionData
             {
-                UserName = "xxx",
-                Password = "xxx"
+                UserName = "xx",
+                Password = "xx"
             };
 
             var delay = RequestDelay.FromSeconds(2, 2);

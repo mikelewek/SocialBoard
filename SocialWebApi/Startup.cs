@@ -1,74 +1,70 @@
-﻿using System.Data.SqlClient;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
+using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore.SqlServer;
+using Microsoft.EntityFrameworkCore;
 using SocialWebApi.Models;
 
 namespace SocialWebApi
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; }
-        private string _azureConnectionString = null;
-        private string _localConnectionString = null;
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+        public IConfiguration Configuration { get; }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var builder = new SqlConnectionStringBuilder(
-            Configuration.GetConnectionString("Azure"));
-            builder.Password = Configuration["Database:AzurePassword"];
-            _azureConnectionString = builder.ConnectionString;
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost:3000");
+                });
+            });
 
             services.AddAutoMapper(typeof(Startup));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddDbContext<SocialContext>(options =>
-                options.UseSqlServer(_azureConnectionString)
-            );
 
-            services.AddMvc().AddJsonOptions(options => {
-				options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-			});
-		}
+            services.AddDbContext<SocialContext>(
+                options => options.UseSqlServer(Configuration["ConnectionStrings:Local"]));
+
+            services.AddControllers().AddNewtonsoftJson();
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            var builder = new ConfigurationBuilder();
-            builder.AddUserSecrets<Startup>();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
             else
             {
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
-            app.UseCors(corsBuilder =>
-            {
-                corsBuilder
-                    .WithOrigins("http://localhost:3000")
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .AllowCredentials();
-            });
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseHttpsRedirection();
-            app.UseMvc();
+
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 }
