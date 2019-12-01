@@ -10,6 +10,7 @@
     <EmbeddedResource Remove="ApiModels\**" />
     <None Remove="ApiModels\**" />
     <Compile Remove="Models\SocialBoardFeatured.cs" />
+    <None Remove="Properties\PublishProfiles\socialboarddemo - Web Deploy.pubxml" />
   </ItemGroup>
 
   <ItemGroup>

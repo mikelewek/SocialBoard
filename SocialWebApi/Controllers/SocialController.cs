@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using SocialWebApi.Models;
 
 namespace SocialWebApi.Controllers
@@ -9,15 +10,21 @@ namespace SocialWebApi.Controllers
     /// <summary>
     /// Get data from external social media endpoints including Twitter and Instagram
     /// </summary>  
-
     [ApiController]
     [Route("api/[controller]")]
     public class SocialController : ControllerBase
     {
+        private readonly IConfiguration _config;
+
+        public SocialController(IConfiguration config)
+        {
+            _config = config;
+        }
+
         [HttpGet("instatweets/term/{term}")]
         public ActionResult GetTweetAndInstaByTerm(string term)
         {
-            TwitterQuery tw = new TwitterQuery();
+            TwitterQuery tw = new TwitterQuery(_config);
             var query = tw.GetTweetsByTerm(term);
 
             return Ok(query);
@@ -26,7 +33,7 @@ namespace SocialWebApi.Controllers
         [HttpGet("tweets/term/{term}")]
         public ActionResult GetTweetByTerm(string term)
         {
-            TwitterQuery tw = new TwitterQuery();
+            TwitterQuery tw = new TwitterQuery(_config);
             var query = tw.GetTweetsByTerm(term);
 
             return Ok(query);
@@ -35,7 +42,7 @@ namespace SocialWebApi.Controllers
         [HttpGet("tweets/id/{id}")]
         public ActionResult<SocialBoardTweetsDto> GetTweetById(string id)
         {
-            TwitterQuery tw = new TwitterQuery();
+            TwitterQuery tw = new TwitterQuery(_config);
             var query = tw.GetTweet(Convert.ToUInt64(id));
 
             if(query == null)
@@ -49,7 +56,7 @@ namespace SocialWebApi.Controllers
         [HttpGet("tweets/screenname/{screename}")]
         public ActionResult<string> GetUserTweets(string screename)
         {
-            TwitterQuery tw = new TwitterQuery();
+            TwitterQuery tw = new TwitterQuery(_config);
 			IEnumerable<SocialBoardTweets> query = tw.GetTweetsByUsername(screename);
             return Ok(query);
         }

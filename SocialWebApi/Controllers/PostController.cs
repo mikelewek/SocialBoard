@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using SocialWebApi.Models;
 
 namespace SocialWebApi.Controllers
@@ -18,11 +19,13 @@ namespace SocialWebApi.Controllers
     {
         private readonly IMapper _mapper;
         private readonly SocialContext _context;
+        private readonly IConfiguration _config;
 
-        public PostController(IMapper mapper, SocialContext context)
+        public PostController(IMapper mapper, SocialContext context, IConfiguration config)
         {
             _mapper = mapper;
             _context = context;
+            _config = config;
         }
 
         [HttpGet]
@@ -36,7 +39,7 @@ namespace SocialWebApi.Controllers
         [HttpGet("tweets/id/{id}")]
         public ActionResult<SocialBoardTweets> GetTweetById(string id)
         {
-            TwitterQuery tw = new TwitterQuery();
+            TwitterQuery tw = new TwitterQuery(_config);
             var tweet = tw.GetTweet(Convert.ToUInt64(id));
             List<SocialBoardTweetsDto> query = _mapper.Map<List<SocialBoardTweetsDto>>(tweet);
 

@@ -8,9 +8,9 @@ class Home extends Component {
 		<Header />
 			<br /><br /><br />
 			<ul>
-				<li><a href="/SocialBoard/#/search">Search</a></li>
-				<li><a href="/SocialBoard/#/featured">Featured</a></li>
-				<li><a href="/SocialBoard/#/live">Live</a></li>
+				<li><a href="/search">Search</a></li>
+				<li><a href="/featured">Featured</a></li>
+				<li><a href="/live">Live</a></li>
 			</ul>
       </div>
     );

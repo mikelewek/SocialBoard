@@ -1,69 +1,72 @@
 import axios from 'axios';
-import mockFeatured from './mockFeatured';
+import mockFeatured from './mockFeatured.json';
 
 class Ajax {	
-	constructor() {
-        this.baseUrl = "https://socialboarddemo.azurewebsites.net/api";
-        //this.baseUrl = "https://localhost:5001/api";
-    }
+	readonly _t:any;
+	readonly baseUrl = "https://localhost:5001/api";
 
-	getPosts = (t) => {
-		axios.get(`${this.baseUrl}/social/${t.state.socialType}/${t.state.type}/${t.state.id}`)
+	//constructor 
+   constructor(t:any) { 
+      this._t = t; 
+   } 
+
+	getPosts = () => {
+		axios.get(`${this.baseUrl}/social/${this._t.state.socialType}/${this._t.state.type}/${this._t.state.id}`)
 			.then(response => {	
-				this.handleAjaxResponse(t, response);
+				this.handleAjaxResponse(response);
         	})
         	.catch(error => {
-			   	this.handleAjaxResponse(t, error.response);
+			   	this.handleAjaxResponse(error.response);
 			 });
 	}
 
-	getFeaturedPosts = (t) => {
+	getFeaturedPosts = () => {
 		axios.get(`${this.baseUrl}/post`)
 			.then(response => {	
-				this.handleAjaxResponse(t, response, 'featured');
+				this.handleAjaxResponse(response, 'featured');
         	})
         	.catch(error => {
-			   	this.handleAjaxResponse(t, error.response);
+			   	this.handleAjaxResponse(error.response);
 			 });
 	}
 
-	getFeaturedBoardPosts = (t) => {
+	getFeaturedBoardPosts = () => {
 		axios.get(`${this.baseUrl}/post`)
 			.then(response => {	
-				this.handleAjaxResponse(t, response, 'featuredboard');
+				this.handleAjaxResponse(response, 'featuredboard');
         	})
         	.catch(error => {
-			   	this.handleAjaxResponse(t, error.response);
+			   	this.handleAjaxResponse(error.response);
 			 });
 	}
 
-	savePost = (t, data) => {
+	savePost = (data:string) => {
 		axios.post(`${this.baseUrl}/post`, data)
 			.then(response => {
-			    this.handleAjaxResponse(t, response);
+			    this.handleAjaxResponse(response);
 			}).catch(error => {
-				this.handleAjaxResponse(t, error.response);
+				this.handleAjaxResponse(error.response);
 			})
         	.catch(error => {
-			   	this.handleAjaxResponse(t, error.response);
+			   	this.handleAjaxResponse(error.response);
 			 });
 	}
 
-	deletePost = (t, id) => {
+	deletePost = (id:number) => {
 		axios.delete(`${this.baseUrl}/post/${id}`)
 			.then(response => {
-			    this.handleAjaxResponse(t, response, 'delete');
+			    this.handleAjaxResponse(response, 'delete');
 			}).catch(error => {
-				this.handleAjaxResponse(t, error.response);
+				this.handleAjaxResponse(error.response);
 			})
         	.catch(error => {
-			   	this.handleAjaxResponse(t, error.response);
+			   	this.handleAjaxResponse(error.response);
 			 });
 	}
 
-	handleAjaxResponse = (t, response, postType = 'data') => {
+	handleAjaxResponse = (response:any, postType = 'data') => {
 		if (response === undefined) {
-			t.setState({
+			this._t.setState({
 				messageType: 'danger',
 				message: `Oops. Someting went wrong: "${response}"`
 			});
@@ -71,7 +74,7 @@ class Ajax {
 		}
 
 		if(response.status === 429) {
-			t.setState({
+			this._t.setState({
 				messageType: 'danger',
 				message: 'Too many requests. Please retry in 10 seconds.'
 			});
@@ -79,11 +82,11 @@ class Ajax {
 		}
 
 		if(response.status === 200) {
-			let data = [];
+			let data:string[] = [];
 			
 			switch (postType) {
 				case 'data':
-					data = this.mergeFeatured(this, response.data)
+					data = this.mergeFeatured(response.data)
 					break;
 				case 'featured':
 					data = response.data.reverse();
@@ -93,45 +96,44 @@ class Ajax {
 					data = this.setFeatured(response.data);
 					break;
 				case 'delete':
-					data = true;
+					data = [];
 					break;	
-				default:
-					data = true;
 			}
 
-			t.setState({
+			this._t.setState({
 				loading: false,
 				message: "",
     			[postType]: data
 			});
 		}
 		else if (response.status === 400) {
-			t.setState({
+			this._t.setState({
 				message: "Oops. Something went wrong!"
 			});
 		}
 	}
 
-	mergeFeatured(t, responseData) {
-        var data = responseData;
+	mergeFeatured(responseData:any) {
+        let data:any = responseData;
+
 		for (var i in responseData) {
-			let match = this.matchFeatured(t, responseData[i]);
+			let match = this.matchFeatured(data[i]);
 
 			if (match) {
-				responseData[i].isFeatured = true;
+				data[i].isFeatured = true;
 			}
         }
         return data;
 	}
 
-	matchFeatured(t, postData) {
+	matchFeatured(postData:any) {
 		let isMatch = false;
 
-		if(t.state === undefined) {
+		if(this._t.state === undefined) {
 			return false;
 		}
 
-		t.state.featured.find(function (e) {
+		this._t.state.featured.find(function (e:any) {
 			if (e.idString === postData.idString) {
 				isMatch = true;
 				return true;
@@ -142,7 +144,7 @@ class Ajax {
 	}
 
 	// mock data to avoid db request
-	getMockFeaturedPosts = (t) => { 
+	getMockFeaturedPosts = () => { 
 		new Promise(function(resolve, reject) {
 		  setTimeout(function() {
 		  	const data = {message: "Ok", status: 200, data: mockFeatured};
@@ -150,11 +152,11 @@ class Ajax {
 		  }, 300);
 		})
 		.then(response => {
-			this.handleAjaxResponse(t, response, 'featured');
+			this.handleAjaxResponse(response, 'featured');
 		});;
 	}
 
-	setFeatured (posts) {
+	setFeatured (posts:any) {
         let data = posts.reverse();
         for (var i in posts) {
             posts[i].isFeatured = true;

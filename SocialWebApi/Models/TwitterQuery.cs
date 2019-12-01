@@ -4,16 +4,18 @@ using System.Linq;
 using Newtonsoft.Json;
 using System;
 using System.Text;
+using Microsoft.Extensions.Configuration;
 
 namespace SocialWebApi.Models
 {
     public class TwitterQuery
     {
         private readonly TwitterContext _ctx;
-        public TwitterQuery()
+        public TwitterQuery(IConfiguration config)
         {
-            SingleUserAuthorizer auth = Auth();
+            SingleUserAuthorizer auth = Auth(config);
             _ctx = new TwitterContext(auth);
+            
         }
 
         public List<SocialBoardTweets> GetTweet(ulong id)
@@ -198,16 +200,16 @@ namespace SocialWebApi.Models
             return mediaUrlStr.ToString();
         }
 
-        private SingleUserAuthorizer Auth()
+        private SingleUserAuthorizer Auth(IConfiguration config)
         {
             return new SingleUserAuthorizer
             {
                 CredentialStore = new SingleUserInMemoryCredentialStore
                 {
-                    ConsumerKey = "xx",
-                    ConsumerSecret = "xx",
-                    AccessToken = "xx",
-                    AccessTokenSecret = "xx"
+                    ConsumerKey = config["Twitter:ConsumerKey"],
+                    ConsumerSecret = config["Twitter:ConsumerSecret"],
+                    AccessToken = config["Twitter:AccessToken"],
+                    AccessTokenSecret = config["Twitter:AccessTokenSecret"]
                 }
             };
         }
