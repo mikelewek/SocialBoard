@@ -70,4 +70,6 @@ chrome-user-data
 .idea
 *.iml
 package-lock.json
-appsettings*
+appsettings.json
+appsettings.Development.json
+
