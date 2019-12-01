@@ -15,7 +15,6 @@ Provides ability to search for posts with terms, hashtags, or post id. The user 
 ##### Creating database tables
 > dotnet ef database update
 
-
 ##### Running the React project
 <pre>
 <code>$ cd socialboard-app</code>
@@ -33,6 +32,7 @@ Provides ability to search for posts with terms, hashtags, or post id. The user 
 </pre>
 
 ##### To-Do
+* appsettings in root of .net project has been removed 
 * Cache post data to prevent unecessary calls
 * .less file issue caused by Hashrouter unless published to Azure
 * Add loading images when searching and updating page
