@@ -43,7 +43,8 @@ Provides ability to search for posts with terms, hashtags, or post id. The user 
 * Ordering tiles
 * Option to automatically remove older featured posts over screen height
 * Matching featured with search results doesn't look like it should work
-* Cleanup TypeScript datatype any usage
+* Cleanup TypeScript datatype any 
+* CORS config 
 
 
 ##### Secrets File for Database Connection and API Strings
