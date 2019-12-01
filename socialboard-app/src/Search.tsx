@@ -11,8 +11,7 @@ interface ISearchState {
 	type: string;
 	socialType: string;
 	data: any;
-	featured: any;
-	loading: any;
+	loading: string;
 	message: string;
 	messageType: string;
 	[name: string]: string;
@@ -29,8 +28,7 @@ class Search extends Component<ISearchProps, ISearchState> {
 			type: "screenname",
 			socialType: "tweets",
 			data: '',
-			featured: '',
-			loading: '',
+			loading: 'true',
 			message: '',
 			messageType: '',
 			[name]: ''
@@ -76,8 +74,8 @@ class Search extends Component<ISearchProps, ISearchState> {
 	handleSubmit(e:any) {
 		e.preventDefault();
 		this.setState({
-			data: [],
-			loading: true
+			data: '',
+			loading: 'true'
 		});
        
         this.ajax = new Ajax(this);

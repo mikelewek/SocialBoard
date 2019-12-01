@@ -13,7 +13,7 @@ interface ITweetState {
 
 class Tweet extends Component<ITweetProps, ITweetState> {
 	render() {
-		const live = this.props.live || false;
+		const live = this.props.live || 'false';
 		const data = this.props.data || [];
 		const onFeatureClick = this.props.onFeatureClick;
 

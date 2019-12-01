@@ -11,7 +11,7 @@ interface IFeaturedProps {
 
 interface IFeaturedState {
     data: any;
-    loading: boolean;
+    loading: string;
     message: string;
     messageType: string;
 }
@@ -23,8 +23,8 @@ class Featured extends Component<IFeaturedProps, IFeaturedState> {
 		super(props);
     
 		this.state = {
-			data: [],
-			loading: false,
+			data: '',
+			loading: 'true',
 			message: '',
 			messageType: ''
 		};
