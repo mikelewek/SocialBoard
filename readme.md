@@ -3,8 +3,6 @@ Displays social media posts based on user curated posts.
 
 Provides ability to search for posts with terms, hashtags, or post id. The user clicks on button to feature a post which adds it to the live feed for public consumption.
 
-#### Demo
-https://mikelewek.github.io/SocialBoard
 
 ##### The project uses
 * .NET Core 2.2
@@ -12,6 +10,7 @@ https://mikelewek.github.io/SocialBoard
 * React
 * Less
 * [LinqToTwitter](https://github.com/JoeMayo/LinqToTwitter)
+
 
 ##### Creating database tables
 > dotnet ef database update

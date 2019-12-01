@@ -3,8 +3,7 @@ import mockFeatured from './mockFeatured.json';
 
 class Ajax {	
 	readonly _t:any;
-	readonly baseUrl:string = "https://socialboarddemo.azurewebsites.net/api";
-	//readonly baseUrl = "https://localhost:5001/api";
+	readonly baseUrl = "https://localhost:5001/api";
 
 	//constructor 
    constructor(t:any) { 

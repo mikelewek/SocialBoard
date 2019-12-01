@@ -4,21 +4,22 @@ import Header from './Header';
 import Ajax from './Ajax';
 
 
-interface FeaturedProps {
+interface IFeaturedProps {
     live?: string;
+    data?: string[];
 }
 
-interface FeaturedState {
+interface IFeaturedState {
     data: any;
     loading: boolean;
     message: string;
     messageType: string;
 }
 
-class Featured extends Component<FeaturedProps, FeaturedState> {	
+class Featured extends Component<IFeaturedProps, IFeaturedState> {	
     ajax:Ajax;
 
-    constructor(props: FeaturedProps) {
+    constructor(props: IFeaturedProps) {
 		super(props);
     
 		this.state = {
@@ -39,6 +40,7 @@ class Featured extends Component<FeaturedProps, FeaturedState> {
 
 	handleFeatureClick = (e:any) => {  
         // delete featured post
+        this.ajax = new Ajax(this);     
         this.ajax.deletePost(e.idString);
 
         // remove post from data state 

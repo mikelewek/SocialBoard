@@ -3,10 +3,10 @@ import Header from './Header';
 import Tweet from './Tweet';
 import Ajax from './Ajax';
 
-interface SearchProps {
+interface ISearchProps {
 }
 
-interface SearchState {
+interface ISearchState {
 	id: string;
 	type: string;
 	socialType: string;
@@ -18,10 +18,10 @@ interface SearchState {
 	[name: string]: string;
 }
 
-class Search extends Component<SearchProps, SearchState> {
+class Search extends Component<ISearchProps, ISearchState> {
 	ajax:any;
 
-	constructor(props:any) {
+	constructor(props: ISearchProps) {
 		super(props);
     
 		this.state = {
