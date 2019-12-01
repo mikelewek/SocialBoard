@@ -54,13 +54,13 @@ class Search extends Component<ISearchProps, ISearchState> {
         }
 
         // get clicked post and toggle the featured prop
-		//let objIndex = this.getDataIndex(e);
-		//let newData = this.state.data;
-		//newData[objIndex].isFeatured = !newData[objIndex].isFeatured;
+		let objIndex = this.getDataIndex(e);
+		let newData = this.state.data;
+		newData[objIndex].isFeatured = !newData[objIndex].isFeatured;
 
-		//this.setState({
-	//		data: newData,
-//		});
+		this.setState({
+			data: newData,
+		});
     }
 
 	handleInputChange(e:any) {
@@ -80,9 +80,9 @@ class Search extends Component<ISearchProps, ISearchState> {
 			loading: true
 		});
        
-       this.ajax = new Ajax(this);
-        this.ajax.getMockFeaturedPosts();    
-        //this.ajax.getFeaturedPosts();  
+        this.ajax = new Ajax(this);
+        //this.ajax.getMockFeaturedPosts();    
+        this.ajax.getFeaturedPosts();  
         this.ajax.getPosts();      
 
         // set featured/saved post array
@@ -92,7 +92,7 @@ class Search extends Component<ISearchProps, ISearchState> {
    	}
 
     getDataIndex(e:any) {
-	//	return this.state.data.findIndex((obj => obj.idString === e.idString));
+		return this.state.data.findIndex((obj: any) => obj.idString === e.idString);
 	}
 
   render() {
