@@ -4,7 +4,7 @@ interface ITweetProps extends React.Props<any> {
 	props?: ReactNode;
     onFeatureClick?: any;
     live?: string;
-    data?: string[];
+    data?: any;
 }
 
 interface ITweetState {

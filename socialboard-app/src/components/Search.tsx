@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import Tweet from './Tweet';
-import Ajax from './Ajax';
+import Ajax from '../Ajax';
 
 interface ISearchProps {
 }

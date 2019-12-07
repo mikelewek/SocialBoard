@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Tweet from './Tweet';
 import Header from './Header';
-import Ajax from './Ajax';
+import Ajax from '../Ajax';
 
 
 interface IFeaturedProps {
