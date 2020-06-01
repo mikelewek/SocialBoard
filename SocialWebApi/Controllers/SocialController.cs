@@ -1,91 +1,101 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using SocialWebApi.Models;
 
 namespace SocialWebApi.Controllers
 {
     /// <summary>
-    /// Get data from external social media endpoints including Twitter and Instagram
+    /// Get data from external Twitter and Instagram endpoints
     /// </summary>  
     [ApiController]
     [Route("api/[controller]")]
     public class SocialController : ControllerBase
     {
-        private readonly IConfiguration _config;
-
-        public SocialController(IConfiguration config)
+        private readonly TwitterQuery _tw;
+    
+        public SocialController()
         {
-            _config = config;
+            _tw = new TwitterQuery();
         }
 
-        [HttpGet("instatweets/term/{term}")]
-        public ActionResult GetTweetAndInstaByTerm(string term)
-        {
-            TwitterQuery tw = new TwitterQuery(_config);
-            var query = tw.GetTweetsByTerm(term);
+        //[HttpGet("instatweets/term/{term}")]
+        //public ActionResult GetTweetAndInstaByTerm(string term)
+        //{
+        //    TwitterQuery tw = new TwitterQuery(_config);
+        //    var model = new TweetViewModel()
+        //    {
+        //        Tweets = _mapper.Map<List<SocialBoardTweetsDto>>(tw.GetTweetsByTerm(term))
+        //    };
 
-            return Ok(query);
-        }
+        //    return Ok(model);
+        //}
 
         [HttpGet("tweets/term/{term}")]
         public ActionResult GetTweetByTerm(string term)
         {
-            TwitterQuery tw = new TwitterQuery(_config);
-            var query = tw.GetTweetsByTerm(term);
+            var model = new TweetViewModel()
+            {
+                Tweets = _tw.GetTweetsByTerm(term)
+            };
 
-            return Ok(query);
+            return Ok(model);
         }
 
         [HttpGet("tweets/id/{id}")]
-        public ActionResult<SocialBoardTweetsDto> GetTweetById(string id)
+        public async Task<ActionResult<TweetsDto>> GetTweetById(string id)
         {
-            TwitterQuery tw = new TwitterQuery(_config);
-            var query = tw.GetTweet(Convert.ToUInt64(id));
+            var query = await _tw.GetTweet(Convert.ToUInt64(id));
 
             if(query == null)
             {
                 return NotFound();
             }
 
-			return Ok(query);
+            var model = new TweetViewModel()
+            {
+                Tweets = query
+            };
+            return Ok(model);
         }
 
         [HttpGet("tweets/screenname/{screename}")]
-        public ActionResult<string> GetUserTweets(string screename)
+        public async Task<ActionResult<string>> GetUserTweetsAsync(string screename)
         {
-            TwitterQuery tw = new TwitterQuery(_config);
-			IEnumerable<SocialBoardTweets> query = tw.GetTweetsByUsername(screename);
-            return Ok(query);
+
+            var model = new TweetViewModel()
+            {
+                Tweets = await _tw.GetTweetsByUsernameAsync(screename)
+            };
+
+            return Ok(model.Tweets);
         }
 
-        [HttpGet("instas/{term}")]
-        public async Task<IActionResult> GetInstaByTerm(string term)
-        {
-            InstaQuery insta = new InstaQuery();
-            await insta.Auth();
-            var query = await insta.GetInstaByTag(term);
-            return Ok(query);
-        }
+        //[HttpGet("instas/{term}")]
+        //public async Task<IActionResult> GetInstaByTerm(string term)
+        //{
+        //    InstaQuery insta = new InstaQuery();
+        //    await insta.Auth();
+        //    var query = await insta.GetInstaByTag(term);
+        //    return Ok(query);
+        //}
 
-        [HttpGet("instas/id/{mediaId}")]
-        public async Task<IActionResult> GetInstaById(string mediaId)
-        {
-            InstaQuery insta = new InstaQuery();
-            await insta.Auth();
-            var query = await insta.GetInstaById(mediaId);
-            return Ok(query);
-        }
+        //[HttpGet("instas/id/{mediaId}")]
+        //public async Task<IActionResult> GetInstaById(string mediaId)
+        //{
+        //    InstaQuery insta = new InstaQuery();
+        //    await insta.Auth();
+        //    var query = await insta.GetInstaById(mediaId);
+        //    return Ok(query);
+        //}
 
-        [HttpGet("instas/screenname/{screename}")]
-        public async Task<IActionResult> GetUserInstas(string screename)
-        {
-            InstaQuery insta = new InstaQuery();
-            await insta.Auth();
-            var query = await insta.GetInstaByUsername(screename);
-            return Ok(query);
-        }
+        //[HttpGet("instas/screenname/{screename}")]
+        //public async Task<IActionResult> GetUserInstas(string screename)
+        //{
+        //    InstaQuery insta = new InstaQuery();
+        //    await insta.Auth();
+        //    var query = await insta.GetInstaByUsername(screename);
+        //    return Ok(query);
+        //}
     }
 }

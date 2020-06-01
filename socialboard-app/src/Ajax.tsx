@@ -117,7 +117,7 @@ class Ajax {
         let data:any = responseData;
 
 		for (var i in responseData) {
-			let match = this.matchFeatured(data[i]);
+			const match = this.matchFeatured(data[i]);
 
 			if (match) {
 				data[i].isFeatured = true;
@@ -134,7 +134,7 @@ class Ajax {
 		}
 
 		this._t.state.featured.find(function (e:any) {
-			if (e.idString === postData.idString) {
+			if (e.socialId === postData.socialId) {
 				isMatch = true;
 				return true;
 			}

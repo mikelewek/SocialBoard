@@ -2,7 +2,7 @@
 
 namespace SocialWebApi.Models
 {
-    public class SocialBoardInstas
+    public class Instas
     {
         public int Id { get; set; }
         public string Pk { get; set; }

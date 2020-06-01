@@ -4,7 +4,7 @@ namespace SocialWebApi.Models
 {
     public class SocialContext : DbContext
     {
-        public virtual DbSet<SocialBoardTweets> SocialBoardTweets { get; set; }
+        public virtual DbSet<Tweets> SocialBoardTweets { get; set; }
 
         public SocialContext(DbContextOptions<SocialContext> options): base(options)
         {
@@ -14,24 +14,15 @@ namespace SocialWebApi.Models
         {
             modelBuilder.HasAnnotation("ProductVersion", "2.2.1-servicing-10028");
 
-            modelBuilder.Entity<SocialBoardTweets>(entity =>
+            modelBuilder.Entity<Tweets>(entity =>
             {
                 entity.HasKey(e => e.SocialId);
 
                 entity.Property(e => e.SocialId).HasColumnName("SocialID");
 
-                entity.Property(e => e.CreatedAtString)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.FullText).IsRequired();
 
                 entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.IdString)
-                    .IsRequired()
-                    .IsUnicode(false);
 
                 entity.Property(e => e.InReplyToScreenName)
                     .HasMaxLength(100)

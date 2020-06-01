@@ -35,13 +35,13 @@ class Featured extends Component<IFeaturedProps, IFeaturedState> {
 	}
 
     getDataIndex(e:any) {
- //       return this.state.data.findIndex((obj => obj.idString === e.idString));
+        return this.state.data.findIndex((obj: any) => obj.socialId === e.socialId);
     }
 
 	handleFeatureClick = (e:any) => {  
         // delete featured post
         this.ajax = new Ajax(this);     
-        this.ajax.deletePost(e.idString);
+        this.ajax.deletePost(e.socialId);
 
         // remove post from data state 
         let objIndex = this.getDataIndex(e);

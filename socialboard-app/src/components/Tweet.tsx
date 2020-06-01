@@ -21,12 +21,12 @@ class Tweet extends Component<ITweetProps, ITweetState> {
 			<>
 				{data.map(function (item:any, index:number) {
 					let isFeatured: string = (item.isFeatured === true ? ' Unfeature' : ' Feature');
-            		const screenName: string = item.user !== null ? item.user.screenNameResponse : item.screenName;
-            		const username: string = item.user !== null ? item.user.username : item.username;
-            		const profileImageUrl: string = item.user !== null ? item.user.profileImageUrl : item.profileImageUrl;
+            		const screenName: string = item.user !== undefined ? item.user.screenNameResponse : item.screenName;
+            		const username: string = item.user !== undefined ? item.user.username : item.username;
+            		const profileImageUrl: string = item.user !== undefined ? item.user.profileImageUrl : item.profileImageUrl;
 
 					return (
-						<div key={index} className={'card post key-' + (index) + ' post-id-' + (item.idString) + (item.user === undefined ? ' hidden' : '') + isFeatured.toLowerCase()}>
+						<div key={index} className={'card post key-' + (index) + ' post-id-' + (item.id) + (item.user === undefined ? ' hidden' : '') + isFeatured.toLowerCase()}>
 							<div dangerouslySetInnerHTML={{ __html: item.mediaUrl}}></div>
 
 							{live === 'true' ? '' : <div className={'featured-toggle' + isFeatured.toLowerCase()} onClick={() => onFeatureClick(item)}>{isFeatured}</div>}

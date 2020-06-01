@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using SocialWebApi.Models;
 
 namespace SocialWebApi.Controllers
@@ -15,17 +14,17 @@ namespace SocialWebApi.Controllers
     // api/post
     [ApiController]
     [Route("api/[controller]")]    
-    public class PostController : ControllerBase
+    public class PostController : ControllerBase, IDisposable
     {
         private readonly IMapper _mapper;
         private readonly SocialContext _context;
-        private readonly IConfiguration _config;
+        private readonly TwitterQuery _tw;
 
-        public PostController(IMapper mapper, SocialContext context, IConfiguration config)
+        public PostController(IMapper mapper, SocialContext context)
         {
+            _tw = new TwitterQuery();
             _mapper = mapper;
-            _context = context;
-            _config = config;
+            _context = context;         
         }
 
         [HttpGet]
@@ -37,11 +36,10 @@ namespace SocialWebApi.Controllers
         }
 
         [HttpGet("tweets/id/{id}")]
-        public ActionResult<SocialBoardTweets> GetTweetById(string id)
+        public ActionResult<Tweets> GetTweetById(string id)
         {
-            TwitterQuery tw = new TwitterQuery(_config);
-            var tweet = tw.GetTweet(Convert.ToUInt64(id));
-            List<SocialBoardTweetsDto> query = _mapper.Map<List<SocialBoardTweetsDto>>(tweet);
+            var tweet = _tw.GetTweet(Convert.ToUInt64(id));
+            List<TweetsDto> query = _mapper.Map<List<TweetsDto>>(tweet);
 
             if (query == null)
             {
@@ -54,12 +52,17 @@ namespace SocialWebApi.Controllers
         // add post to featured post grid
         // POST api/post
         [HttpPost]
-        public IActionResult Post([FromBody] SocialBoardTweetsDto model)
+        public IActionResult Post([FromBody] TweetsDto model)
         {
             if (ModelState.IsValid)
-            {
-                model.DateAdded = DateTime.Now;
-                var tweet = _mapper.Map<SocialBoardTweets>(model);
+            { 
+                var tweet = _mapper.Map<Tweets>(model);
+                tweet.DateAdded = DateTime.Now;
+                tweet.Id = model.Id;
+                tweet.UserId = model.User.UserIDResponse;
+                tweet.Username = model.User.Name;
+                tweet.ScreenName = model.User.ScreenNameResponse;
+                tweet.ProfileImageUrl = model.User.ProfileImageUrlHttps;
 
                 _context.SocialBoardTweets.Add(tweet);
                 _context.SaveChanges();
@@ -72,9 +75,9 @@ namespace SocialWebApi.Controllers
 
 
         [HttpDelete("{postId}")]
-        public IActionResult Delete(string postId)
+        public IActionResult Delete(int postId)
         {
-            var featuredTweet = _context.SocialBoardTweets.FirstOrDefault(x => x.IdString == postId);
+            var featuredTweet = _context.SocialBoardTweets.FirstOrDefault(x => x.SocialId == postId);
             if (featuredTweet == null)
             {
                 return NotFound();
@@ -83,6 +86,27 @@ namespace SocialWebApi.Controllers
             _context.SocialBoardTweets.Remove(featuredTweet);
             _context.SaveChanges();
             return Ok();
+        }
+
+        private bool disposed = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            if (disposing)
+            {
+                _context.Dispose();
+            }
+
+            disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

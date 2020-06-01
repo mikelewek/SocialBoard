@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore.SqlServer;
 using Microsoft.EntityFrameworkCore;
 using SocialWebApi.Models;
 
@@ -15,6 +14,7 @@ namespace SocialWebApi
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            AppSettings.Configuration = configuration;
         }
 
         readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -36,7 +36,7 @@ namespace SocialWebApi
             services.AddAutoMapper(typeof(Startup));
 
             services.AddDbContext<SocialContext>(
-                options => options.UseSqlServer(Configuration["ConnectionStrings:Local"]));
+                options => options.UseSqlite(Configuration["ConnectionStrings:Local"]));
 
             services.AddControllers().AddNewtonsoftJson();
         }

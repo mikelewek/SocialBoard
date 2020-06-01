@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SocialWebApi.Models;
@@ -10,91 +9,100 @@ using SocialWebApi.Models;
 namespace SocialWebApi.Migrations
 {
     [DbContext(typeof(SocialContext))]
-    [Migration("20191018005211_InitialCreate")]
+    [Migration("20200531233523_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028");
 
-            modelBuilder.Entity("SocialWebApi.Models.SocialBoardTweets", b =>
+            modelBuilder.Entity("SocialWebApi.Models.Tweets", b =>
                 {
                     b.Property<int>("SocialId")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("SocialID")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("CreatedAt");
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
 
-                    b.Property<string>("CreatedAtString")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .IsUnicode(false);
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DateAdded");
+                    b.Property<int>("FavoritedCount")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<int>("FavoritedCount");
+                    b.Property<int>("FollowersCount")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<int>("FollowersCount");
-
-                    b.Property<int>("FriendsCount");
+                    b.Property<int>("FriendsCount")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("FullText")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<long>("Id")
-                        .HasColumnName("ID");
-
-                    b.Property<string>("IdString")
-                        .IsRequired()
-                        .IsUnicode(false);
+                        .HasColumnName("ID")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("InReplyToScreenName")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(100)
                         .IsUnicode(false);
 
                     b.Property<string>("InReplyToStatusId")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(100)
                         .IsUnicode(false);
 
                     b.Property<long?>("MaxId")
-                        .HasColumnName("MaxID");
+                        .HasColumnName("MaxID")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("MediaType")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(50)
                         .IsUnicode(false);
 
                     b.Property<string>("MediaUrl")
                         .HasColumnName("MediaURL")
+                        .HasColumnType("TEXT")
                         .IsUnicode(false);
 
-                    b.Property<int>("Order");
+                    b.Property<int>("Order")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<bool>("PossiblySensitive");
+                    b.Property<bool>("PossiblySensitive")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ProfileImageUrl")
                         .IsRequired()
+                        .HasColumnType("TEXT")
                         .IsUnicode(false);
 
-                    b.Property<int>("RetweetCount");
+                    b.Property<int>("RetweetCount")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ScreenName")
                         .IsRequired()
+                        .HasColumnType("TEXT")
                         .HasMaxLength(100);
 
                     b.Property<long?>("SinceId")
-                        .HasColumnName("SinceID");
+                        .HasColumnName("SinceID")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("UserId")
                         .IsRequired()
+                        .HasColumnType("TEXT")
                         .IsUnicode(false);
 
                     b.Property<string>("Username")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("SocialId");
 

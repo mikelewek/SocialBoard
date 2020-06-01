@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SocialWebApi.Migrations
@@ -13,8 +12,9 @@ namespace SocialWebApi.Migrations
                 columns: table => new
                 {
                     SocialID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Order = table.Column<int>(nullable: false),
+                    ID = table.Column<long>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     DateAdded = table.Column<DateTime>(nullable: false),
                     FollowersCount = table.Column<int>(nullable: false),
@@ -24,18 +24,15 @@ namespace SocialWebApi.Migrations
                     RetweetCount = table.Column<int>(nullable: false),
                     FavoritedCount = table.Column<int>(nullable: false),
                     MediaURL = table.Column<string>(unicode: false, nullable: true),
-                    ID = table.Column<long>(nullable: false),
                     PossiblySensitive = table.Column<bool>(nullable: false),
                     SinceID = table.Column<long>(nullable: true),
                     MaxID = table.Column<long>(nullable: true),
-                    IdString = table.Column<string>(unicode: false, nullable: false),
-                    CreatedAtString = table.Column<string>(unicode: false, maxLength: 50, nullable: false),
                     FullText = table.Column<string>(nullable: false),
                     MediaType = table.Column<string>(unicode: false, maxLength: 50, nullable: true),
+                    UserId = table.Column<string>(unicode: false, nullable: false),
                     Username = table.Column<string>(nullable: false),
                     ScreenName = table.Column<string>(maxLength: 100, nullable: false),
-                    ProfileImageUrl = table.Column<string>(unicode: false, nullable: false),
-                    UserId = table.Column<string>(unicode: false, nullable: false)
+                    ProfileImageUrl = table.Column<string>(unicode: false, nullable: false)
                 },
                 constraints: table =>
                 {
