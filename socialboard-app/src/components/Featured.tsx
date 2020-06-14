@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Tweet from './Tweet';
 import Header from './Header';
 import Ajax from '../Ajax';
-
+import Utils from '../Utils';
 
 interface IFeaturedProps {
     live?: string;
@@ -34,17 +34,13 @@ class Featured extends Component<IFeaturedProps, IFeaturedState> {
         this.ajax.getFeaturedBoardPosts();
 	}
 
-    getDataIndex(e:any) {
-        return this.state.data.findIndex((obj: any) => obj.id === e.id);
-    }
-
 	handleFeatureClick = (e:any) => {  
         // delete featured post
         this.ajax = new Ajax(this);     
         this.ajax.deletePost(e.id);
 
         // remove post from data state 
-        let objIndex = this.getDataIndex(e);
+        let objIndex = new Utils().getDataIndex(this.state.data, e);
         let newData = this.state.data;
         newData.splice(objIndex, 1);
 

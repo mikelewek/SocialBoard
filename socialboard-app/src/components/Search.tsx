@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Header from './Header';
 import Tweet from './Tweet';
 import Ajax from '../Ajax';
+import Utils from '../Utils';
 
 interface ISearchProps {
 }
@@ -52,7 +53,7 @@ class Search extends Component<ISearchProps, ISearchState> {
         }
 
         // get clicked post and toggle the featured prop
-		let objIndex = this.getDataIndex(e);
+		let objIndex = new Utils().getDataIndex(this.state.data, e);
 		let newData = this.state.data;
 		newData[objIndex].isFeatured = !newData[objIndex].isFeatured;
 
@@ -73,6 +74,8 @@ class Search extends Component<ISearchProps, ISearchState> {
 
 	handleSubmit(e:any) {
 		e.preventDefault();
+		let self = this;
+
 		this.setState({
 			data: '',
 			loading: 'true'
@@ -84,14 +87,10 @@ class Search extends Component<ISearchProps, ISearchState> {
         this.ajax.getPosts();      
 
         // set featured/saved post array
-        // setInterval(function() { 
-        //     this.ajax.getPosts(this);   
-        // }, 6000);
+        setInterval(function() { 
+            self.ajax.getPosts();   
+        }, 30000);
    	}
-
-    getDataIndex(e:any) {
-		return this.state.data.findIndex((obj: any) => obj.id === e.id);
-	}
 
   render() {
 	  return (

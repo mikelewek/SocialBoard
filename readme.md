@@ -5,7 +5,7 @@ Provides ability to search for posts with terms, hashtags, or post id. The user 
 
 
 ##### The project uses
-* .NET Core 2.2
+* .NET Core 3
 * REST
 * React
 * Less
