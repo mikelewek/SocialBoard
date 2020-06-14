@@ -53,9 +53,9 @@ namespace SocialWebApi.Controllers
         // POST api/post
         [HttpPost]
         public IActionResult Post([FromBody] TweetsDto model)
-        {
+        { 
             if (ModelState.IsValid)
-            { 
+            {
                 var tweet = _mapper.Map<Tweets>(model);
                 tweet.DateAdded = DateTime.Now;
                 tweet.Id = model.Id;
@@ -75,9 +75,9 @@ namespace SocialWebApi.Controllers
 
 
         [HttpDelete("{postId}")]
-        public IActionResult Delete(int postId)
+        public IActionResult Delete(long postId)
         {
-            var featuredTweet = _context.SocialBoardTweets.FirstOrDefault(x => x.SocialId == postId);
+            var featuredTweet = _context.SocialBoardTweets.FirstOrDefault(x => x.Id == postId);
             if (featuredTweet == null)
             {
                 return NotFound();

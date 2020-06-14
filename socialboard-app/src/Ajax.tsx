@@ -134,7 +134,7 @@ class Ajax {
 		}
 
 		this._t.state.featured.find(function (e:any) {
-			if (e.socialId === postData.socialId) {
+			if (e.id === postData.id) {
 				isMatch = true;
 				return true;
 			}

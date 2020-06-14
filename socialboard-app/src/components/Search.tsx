@@ -48,7 +48,7 @@ class Search extends Component<ISearchProps, ISearchState> {
         else {
             // delete saved post    
             this.ajax = new Ajax(this);
-            this.ajax.deletePost(e.socialId);
+            this.ajax.deletePost(e.id);
         }
 
         // get clicked post and toggle the featured prop
@@ -90,7 +90,7 @@ class Search extends Component<ISearchProps, ISearchState> {
    	}
 
     getDataIndex(e:any) {
-		return this.state.data.findIndex((obj: any) => obj.socialId === e.socialId);
+		return this.state.data.findIndex((obj: any) => obj.id === e.id);
 	}
 
   render() {
