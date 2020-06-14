@@ -72,4 +72,5 @@ chrome-user-data
 package-lock.json
 appsettings.json
 appsettings.Development.json
+*.db
 
