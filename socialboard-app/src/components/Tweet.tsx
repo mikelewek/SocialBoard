@@ -41,11 +41,20 @@ class Tweet extends Component<ITweetProps, ITweetState> {
 
 								<div className="footer">
 									<div className="post-time col-xs-8">{item.createdAtString}</div>
+									
+									{item.favoritedCount > 0 &&
+										<>
+                                    		<div className="favorite-count col-xs-1">{item.favoritedCount}</div>
+                                    		<div className="icon favorite-count-icon col-xs-1"></div>
+                                    	</>
+                                	}                              	
+                                    	
+                                    {item.retweetCount > 0 &&
+                                    	<>
+                                    		<div className="retweet-count col-xs-1">{item.retweetCount}</div>
+                                    	</>
+                                	}
 
-                                    <div className="favorite-count col-xs-1">{item.favoritedCount > 0 ? item.favoritedCount : ''}</div>
-                                    <div className="icon favorite-count-icon col-xs-1"></div>
-
-                                    <div className="retweet-count col-xs-1">{item.retweetCount > 0 ? item.retweetCount : ''}</div>
                                     <div className="icon retweet-count-icon col-xs-1"></div>
 								</div>
 							</div>
